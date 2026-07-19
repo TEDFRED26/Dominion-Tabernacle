@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dominion Tabernacle Church — Mountain of Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14172B;
+    --gold:#C9A44C;
+    --gold-soft:#E4CE8E;
+    --ivory:#F6F1E7;
+    --mtn:#33473A;
+    --mtn-deep:#212F27;
+    --clay:#8C3B2E;
+    --line: rgba(20,23,43,0.12);
+    --shadow: 0 20px 50px rgba(20,23,43,0.18);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--mtn);
+  }
+  .eyebrow.on-dark{ color:var(--gold-soft); }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 5vw;
+    background:rgba(20,23,43,0.92);
+    backdrop-filter: blur(6px);
+    color:var(--ivory);
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    width:42px; height:42px; flex:none;
+    border-radius:50%; object-fit:cover;
+    box-shadow:0 0 0 1px rgba(228,206,142,0.4);
+  }
+  .brand-text{ line-height:1.05; }
+  .brand-text .name{ font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem; }
+  .brand-text .tag{ font-family:'IBM Plex Mono', monospace; font-size:0.62rem; letter-spacing:0.14em; color:var(--gold-soft); text-transform:uppercase; }
+  nav ul{ list-style:none; display:flex; gap:32px; margin:0; padding:0; }
+  nav a{
+    text-decoration:none; font-size:0.9rem; font-weight:500;
+    padding:6px 2px; border-bottom:1px solid transparent;
+    transition:border-color 0.2s ease;
+  }
+  nav a:hover, nav a:focus-visible{ border-color:var(--gold); outline:none; }
+  .nav-toggle{ display:none; background:none; border:none; color:var(--ivory); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    background: radial-gradient(120% 90% at 50% 0%, #232847 0%, var(--ink) 55%, #0c0e1c 100%);
+    color:var(--ivory);
+    overflow:hidden;
+    padding:120px 6vw 0;
+  }
+  .glow{
+    position:absolute; left:50%; top:34%;
+    width:900px; height:900px; transform:translate(-50%,-50%);
+    background: radial-gradient(circle, rgba(201,164,76,0.35) 0%, rgba(201,164,76,0.08) 45%, transparent 70%);
+    filter: blur(10px);
+    animation: pulse 7s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{ opacity:0.75; } 50%{ opacity:1; } }
+
+  .hero-content{ position:relative; z-index:2; max-width:760px; }
+  .hero .eyebrow{ margin-bottom:18px; }
+  .hero h1{ font-size:clamp(2.6rem, 6vw, 4.6rem); line-height:1.02; }
+  .hero .motto-badge{
+    display:inline-flex; align-items:center; gap:10px;
+    margin:26px 0 20px;
+    padding:9px 20px;
+    border:1px solid rgba(228,206,142,0.4);
+    border-radius:999px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--gold-soft);
+  }
+  .motto-badge svg{ width:14px; height:14px; }
+  .hero p.lede{
+    font-size:1.08rem; line-height:1.65; color:rgba(246,241,231,0.82);
+    max-width:560px; margin:0 auto;
+  }
+  .hero-ctas{ display:flex; gap:16px; justify-content:center; margin-top:36px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:8px; border:1px solid transparent;
+    font-weight:600; font-size:0.92rem; text-decoration:none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-gold{ background:var(--gold); color:var(--ink); }
+  .btn-gold:hover{ box-shadow:0 10px 24px rgba(201,164,76,0.35); }
+  .btn-outline{ border-color:rgba(246,241,231,0.35); color:var(--ivory); background:transparent; }
+  .btn-outline:hover{ border-color:var(--gold-soft); }
+
+  /* mountain silhouette signature */
+  .mountains{
+    position:absolute; bottom:0; left:0; width:100%; line-height:0; z-index:1;
+  }
+  .mountains svg{ width:100%; height:auto; display:block; }
+
+  .service-strip{
+    position:relative; z-index:2;
+    display:flex; gap:36px; flex-wrap:wrap; justify-content:center;
+    margin-top:56px; padding-top:26px;
+    border-top:1px solid rgba(246,241,231,0.15);
+    width:100%; max-width:700px;
+  }
+  .service-strip div{ text-align:center; }
+  .service-strip .label{ font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-soft); }
+  .service-strip .val{ font-size:0.95rem; margin-top:4px; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:110px 6vw; position:relative; }
+  .section-head{ max-width:640px; margin:0 auto 56px; text-align:center; }
+  .section-head h2{ font-size:clamp(2rem, 3.4vw, 2.8rem); margin-top:14px; }
+  .section-head p{ margin-top:16px; color:rgba(20,23,43,0.68); line-height:1.6; }
+
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- EVENTS CAROUSEL ---------- */
+  .events{ background:var(--ivory); }
+  .carousel{
+    max-width:1080px; margin:0 auto; position:relative;
+  }
+  .carousel-track-wrap{ overflow:hidden; border-radius:16px; }
+  .carousel-track{
+    display:flex; transition:transform 0.5s cubic-bezier(.65,0,.35,1);
+  }
+  .event-card{
+    flex:0 0 100%;
+    display:grid; grid-template-columns:1fr 1.3fr;
+    background:#fff; min-height:340px;
+    border:1px solid var(--line);
+  }
+  .event-visual{
+    background:var(--mtn); position:relative; overflow:hidden;
+    color:var(--ivory); display:flex; flex-direction:column; justify-content:flex-end; padding:28px;
+  }
+  .event-visual svg.peak{ position:absolute; inset:0; width:100%; height:100%; opacity:0.5; }
+  .event-date{ position:relative; z-index:1; }
+  .event-date .day{ font-family:'Fraunces',serif; font-size:3rem; font-weight:700; line-height:1; }
+  .event-date .month{ font-family:'IBM Plex Mono',monospace; letter-spacing:0.14em; text-transform:uppercase; font-size:0.75rem; margin-top:6px; }
+  .event-body{ padding:40px; display:flex; flex-direction:column; justify-content:center; gap:14px; }
+  .event-tag{
+    align-self:flex-start;
+    font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase;
+    background:rgba(140,59,46,0.1); color:var(--clay); padding:5px 12px; border-radius:999px;
+  }
+  .event-body h3{ font-size:1.5rem; }
+  .event-body .meta{ display:flex; gap:18px; flex-wrap:wrap; font-size:0.88rem; color:rgba(20,23,43,0.65); }
+  .event-body .meta span{ display:flex; align-items:center; gap:6px; }
+  .event-body p{ color:rgba(20,23,43,0.72); line-height:1.6; margin:0; }
+
+  .carousel-controls{
+    display:flex; align-items:center; justify-content:center; gap:22px; margin-top:26px;
+  }
+  .car-btn{
+    width:42px; height:42px; border-radius:50%; border:1px solid var(--line);
+    background:#fff; display:flex; align-items:center; justify-content:center;
+    transition:background 0.2s ease, transform 0.2s ease;
+  }
+  .car-btn:hover{ background:var(--gold-soft); transform:scale(1.06); }
+  .car-btn:focus-visible{ outline:2px solid var(--mtn); outline-offset:2px; }
+  .dots{ display:flex; gap:9px; }
+  .dot{ width:9px; height:9px; border-radius:50%; background:var(--line); border:none; padding:0; }
+  .dot.active{ background:var(--mtn); width:22px; border-radius:5px; transition:width 0.25s ease; }
+
+  /* ---------- SERMONS ---------- */
+  .sermons{ background:#fff; }
+  .sermons-grid{
+    max-width:1080px; margin:0 auto;
+    display:grid; grid-template-columns:0.85fr 1.15fr; gap:44px;
+    align-items:start;
+  }
+  .upload-card{
+    border:1.5px dashed var(--mtn);
+    border-radius:16px; padding:32px;
+    background: linear-gradient(180deg, rgba(51,71,58,0.04), rgba(51,71,58,0.01));
+  }
+  .upload-card h3{ font-size:1.2rem; margin-bottom:6px; }
+  .upload-card p.hint{ font-size:0.87rem; color:rgba(20,23,43,0.6); margin:0 0 20px; line-height:1.55; }
+  .field{ margin-bottom:16px; }
+  .field label{ display:block; font-size:0.78rem; font-weight:600; margin-bottom:6px; color:var(--mtn); }
+  .field input, .field select{
+    width:100%; padding:11px 13px; border:1px solid var(--line); border-radius:8px;
+    font-family:'Inter',sans-serif; font-size:0.9rem; background:#fff;
+  }
+  .field input:focus, .field select:focus{ outline:2px solid var(--gold); outline-offset:1px; border-color:var(--gold); }
+  .drop-zone{
+    border:1px solid var(--line); border-radius:8px; padding:20px;
+    text-align:center; font-size:0.85rem; color:rgba(20,23,43,0.55);
+    background:#fff; cursor:pointer;
+  }
+  .drop-zone.drag{ border-color:var(--gold); background:rgba(201,164,76,0.08); }
+  .drop-zone input[type=file]{ display:none; }
+  .submit-btn{
+    width:100%; margin-top:6px; padding:13px; border-radius:8px; border:none;
+    background:var(--mtn); color:var(--ivory); font-weight:600; font-size:0.92rem;
+    transition:background 0.2s ease;
+  }
+  .submit-btn:hover{ background:var(--mtn-deep); }
+  .form-msg{ font-size:0.82rem; margin-top:10px; min-height:18px; }
+  .form-msg.ok{ color:var(--mtn); }
+
+  .sermon-list{ display:flex; flex-direction:column; gap:14px; max-height:640px; overflow-y:auto; padding-right:6px; }
+  .sermon-item{
+    border:1px solid var(--line); border-radius:12px; padding:18px 20px;
+    display:flex; flex-direction:column; gap:10px;
+    transition:box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .sermon-item:hover{ box-shadow:var(--shadow); transform:translateY(-2px); }
+  .sermon-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:14px; }
+  .sermon-title{ font-family:'Fraunces',serif; font-size:1.08rem; font-weight:600; }
+  .sermon-meta{ font-size:0.8rem; color:rgba(20,23,43,0.6); margin-top:3px; }
+  .sermon-series{
+    flex:none; font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase;
+    background:var(--gold-soft); color:var(--ink); padding:4px 10px; border-radius:999px; white-space:nowrap;
+  }
+  .sermon-item audio{ width:100%; height:36px; }
+  .sermon-item .no-audio{
+    font-size:0.8rem; color:var(--clay); font-style:italic;
+  }
+
+  /* ---------- CONNECT / WHATSAPP ---------- */
+  .connect{
+    background: linear-gradient(180deg, var(--mtn-deep), var(--ink));
+    color:var(--ivory);
+  }
+  .connect-inner{
+    max-width:960px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;
+  }
+  .connect h2{ color:var(--ivory); }
+  .connect p{ color:rgba(246,241,231,0.75); line-height:1.65; margin-top:14px; }
+  .whatsapp-panel{
+    background:#fff; color:var(--ink); border-radius:18px; overflow:hidden;
+    box-shadow:0 30px 60px rgba(0,0,0,0.35);
+  }
+  .wa-head{
+    background:#075E54; color:#fff; padding:16px 20px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .wa-head .dot-online{ width:9px; height:9px; border-radius:50%; background:#25D366; display:inline-block; margin-right:5px; }
+  .wa-head svg{ width:26px; height:26px; }
+  .wa-head .who .n{ font-weight:600; font-size:0.92rem; }
+  .wa-head .who .s{ font-size:0.72rem; opacity:0.85; }
+  .wa-body{ padding:20px; background:#ECE5DD; display:flex; flex-direction:column; gap:10px; }
+  .wa-bubble{
+    background:#fff; padding:10px 14px; border-radius:10px 10px 10px 2px;
+    max-width:82%; font-size:0.86rem; line-height:1.5; box-shadow:0 1px 1px rgba(0,0,0,0.06);
+  }
+  .wa-quick{ display:flex; flex-direction:column; gap:9px; margin-top:6px; }
+  .wa-quick a{
+    display:flex; align-items:center; justify-content:space-between;
+    background:#fff; border:1px solid rgba(7,94,84,0.2); color:#075E54;
+    padding:11px 14px; border-radius:10px; text-decoration:none; font-size:0.85rem; font-weight:600;
+    transition:background 0.2s ease;
+  }
+  .wa-quick a:hover{ background:rgba(37,211,102,0.1); }
+  .wa-footer-cta{
+    padding:16px 20px; background:#fff; border-top:1px solid var(--line);
+  }
+  .wa-footer-cta a{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    background:#25D366; color:#fff; padding:13px; border-radius:10px; text-decoration:none; font-weight:600; font-size:0.9rem;
+  }
+
+  /* floating whatsapp button */
+  .wa-float{
+    position:fixed; right:26px; bottom:26px; z-index:200;
+    width:60px; height:60px; border-radius:50%; background:#25D366;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 12px 26px rgba(37,211,102,0.45);
+    text-decoration:none; transition:transform 0.2s ease;
+  }
+  .wa-float:hover{ transform:scale(1.07); }
+  .wa-float svg{ width:30px; height:30px; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink); color:rgba(246,241,231,0.7);
+    padding:60px 6vw 30px;
+  }
+  .footer-grid{
+    max-width:1080px; margin:0 auto;
+    display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px;
+    padding-bottom:36px; border-bottom:1px solid rgba(246,241,231,0.12);
+  }
+  footer h4{ color:var(--gold-soft); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:16px; font-weight:500;}
+  footer .foot-brand .name{ font-family:'Fraunces',serif; color:var(--ivory); font-size:1.3rem; font-weight:600; }
+  footer .foot-brand p{ margin-top:12px; line-height:1.6; font-size:0.88rem; max-width:280px; }
+  footer ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; font-size:0.88rem; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ color:var(--gold-soft); }
+  .bottom-line{
+    max-width:1080px; margin:22px auto 0; display:flex; justify-content:space-between;
+    font-size:0.78rem; color:rgba(246,241,231,0.45); flex-wrap:wrap; gap:8px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    nav ul{ display:none; }
+    .event-card{ grid-template-columns:1fr; }
+    .event-visual{ min-height:140px; }
+    .sermons-grid, .connect-inner, .footer-grid{ grid-template-columns:1fr; }
+    section{ padding:80px 6vw; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img class="brand-mark" src="dominion_logo.jfif" alt="Dominion Tabernacle Church logo">
+    <div class="brand-text">
+      <div class="name">Dominion Tabernacle Church</div>
+      <div class="tag">Mountain of Solutions</div>
+    </div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#sermons">Sermons</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home" style="padding-bottom:0;">
+  <div class="glow"></div>
+  <div class="hero-content">
+    <img src="dominion_logo.jfif" alt="Dominion Tabernacle Church logo" style="width:96px; height:96px; border-radius:50%; margin:0 auto 22px; box-shadow:0 0 0 3px rgba(228,206,142,0.35), 0 20px 40px rgba(0,0,0,0.4);">
+    <div class="eyebrow on-dark">Every mountain has a peak, and every peak has an answer</div>
+    <h1>Dominion Tabernacle Church</h1>
+    <div class="motto-badge">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M2 20 L9 8 L13 15 L17 6 L22 20 Z" fill="#E4CE8E"/></svg>
+      Mountain of Solutions
+    </div>
+    <p class="lede">A house of prayer where ordinary people bring their mountains and leave with answers. Come worship with us, grow in the Word, and carry what you receive back into your week.</p>
+    <div class="hero-ctas">
+      <a href="#events" class="btn btn-gold">Plan your visit</a>
+      <a href="#sermons" class="btn btn-outline">Listen to a sermon</a>
+    </div>
+  </div>
+
+  <div class="service-strip">
+    <div><div class="label">Sunday Worship</div><div class="val">9:00 AM &amp; 11:00 AM</div></div>
+    <div><div class="label">Wednesday Bible Study</div><div class="val">6:00 PM</div></div>
+    <div><div class="label">Location</div><div class="val">Kiambu Road, Kiambu</div></div>
+  </div>
+
+  <div class="mountains">
+    <svg viewBox="0 0 1440 220" preserveAspectRatio="none">
+      <path d="M0,220 L0,140 L180,40 L340,120 L520,20 L720,110 L900,10 L1100,100 L1260,50 L1440,140 L1440,220 Z" fill="#0c0e1c"/>
+      <path d="M0,220 L0,170 L220,90 L400,160 L620,70 L820,150 L1020,60 L1220,150 L1440,90 L1440,220 Z" fill="#171b32" opacity="0.85"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ================= EVENTS ================= -->
+<section class="events" id="events">
+  <div class="section-head reveal">
+    <div class="eyebrow">What's happening</div>
+    <h2>Upcoming Church Events</h2>
+    <p>Swipe or use the arrows to see what's coming up at Dominion Tabernacle. There's a seat for you at every one.</p>
+  </div>
+
+  <div class="carousel">
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="carTrack">
+
+        <div class="event-card">
+          <div class="event-visual">
+            <svg class="peak" viewBox="0 0 300 300" preserveAspectRatio="none"><path d="M0,300 L40,180 L90,240 L150,120 L210,220 L260,150 L300,300 Z" fill="#213b2c"/></svg>
+            <div class="event-date"><div class="day">27</div><div class="month">Jul · Sun</div></div>
+          </div>
+          <div class="event-body">
+            <span class="event-tag">Worship</span>
+            <h3>Sunday Worship Service</h3>
+            <div class="meta">
+              <span>🕘 9:00 AM &amp; 11:00 AM</span>
+              <span>📍 Main Auditorium</span>
+            </div>
+            <p>A morning of praise, the Word, and altar ministration. Both services are followed by a time of fellowship at the courtyard.</p>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-visual">
+            <svg class="peak" viewBox="0 0 300 300" preserveAspectRatio="none"><path d="M0,300 L60,160 L120,230 L170,100 L230,210 L300,300 Z" fill="#213b2c"/></svg>
+            <div class="event-date"><div class="day">30</div><div class="month">Jul · Wed</div></div>
+          </div>
+          <div class="event-body">
+            <span class="event-tag">Bible Study</span>
+            <h3>Midweek Bible Study</h3>
+            <div class="meta">
+              <span>🕕 6:00 PM</span>
+              <span>📍 Fellowship Hall</span>
+            </div>
+            <p>An in-depth study through the book of Joshua — taking the land, one promise at a time. Open to all ages.</p>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-visual">
+            <svg class="peak" viewBox="0 0 300 300" preserveAspectRatio="none"><path d="M0,300 L50,190 L100,250 L160,110 L220,230 L270,170 L300,300 Z" fill="#213b2c"/></svg>
+            <div class="event-date"><div class="day">08</div><div class="month">Aug · Fri</div></div>
+          </div>
+          <div class="event-body">
+            <span class="event-tag">Youth</span>
+            <h3>Youth Conference: Ascend</h3>
+            <div class="meta">
+              <span>🕔 5:00 PM</span>
+              <span>📍 Main Auditorium</span>
+            </div>
+            <p>Three days of worship, mentorship, and games for teens and young adults. Registration open at the welcome desk.</p>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-visual">
+            <svg class="peak" viewBox="0 0 300 300" preserveAspectRatio="none"><path d="M0,300 L45,170 L95,235 L155,95 L215,215 L265,140 L300,300 Z" fill="#213b2c"/></svg>
+            <div class="event-date"><div class="day">17</div><div class="month">Aug · Mon</div></div>
+          </div>
+          <div class="event-body">
+            <span class="event-tag">Prayer</span>
+            <h3>Week of Prayer &amp; Fasting</h3>
+            <div class="meta">
+              <span>🕕 5:30 AM Daily</span>
+              <span>📍 Main Auditorium</span>
+            </div>
+            <p>Seven days of corporate prayer to seek God for the church, our families, and the nation. Come as you are able.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="carousel-controls">
+      <button class="car-btn" id="carPrev" aria-label="Previous event">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke="#14172B" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="dots" id="carDots"></div>
+      <button class="car-btn" id="carNext" aria-label="Next event">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke="#14172B" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERMONS ================= -->
+<section class="sermons" id="sermons">
+  <div class="section-head reveal">
+    <div class="eyebrow">The Word, on demand</div>
+    <h2>Sermon Library</h2>
+    <p>Missed a Sunday, or want to hear it again? Upload a sermon audio file or browse what's already shared.</p>
+  </div>
+
+  <div class="sermons-grid">
+    <div class="reveal">
+
+      <div class="upload-card" id="adminGate">
+        <h3>Admin sign-in</h3>
+        <p class="hint">Only church admins should add sermons. Enter the admin passcode to unlock the upload form. This is a simple front-end lock for demo purposes — for a real launch, protect uploads with proper server-side login instead of a shared passcode.</p>
+        <div class="field">
+          <label for="adminPass">Admin passcode</label>
+          <input type="password" id="adminPass" placeholder="Enter passcode">
+        </div>
+        <button type="button" class="submit-btn" id="adminUnlock">Unlock uploads</button>
+        <div class="form-msg" id="adminMsg"></div>
+      </div>
+
+      <form class="upload-card" id="uploadForm" style="display:none;">
+        <h3>Upload a sermon</h3>
+        <p class="hint">Files are added to this page for the current session so you can preview the flow. Connect this form to your church's storage to publish sermons for everyone.</p>
+
+        <div class="field">
+          <label for="sTitle">Sermon title</label>
+          <input type="text" id="sTitle" placeholder="e.g. Standing on the Mountain" required>
+        </div>
+        <div class="field">
+          <label for="sSpeaker">Speaker</label>
+          <input type="text" id="sSpeaker" placeholder="e.g. Pastor J. Mwangi" required>
+        </div>
+        <div class="field">
+          <label for="sDate">Date preached</label>
+          <input type="date" id="sDate" required>
+        </div>
+        <div class="field">
+          <label for="sSeries">Series</label>
+          <input type="text" id="sSeries" placeholder="e.g. Ascend" >
+        </div>
+        <div class="field">
+          <label>Audio file</label>
+          <div class="drop-zone" id="dropZone">
+            <span id="dropText">Drag an audio file here, or click to choose one (MP3, M4A, WAV)</span>
+            <input type="file" id="audioFile" accept="audio/*">
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Add sermon to library</button>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+
+    </div>
+
+    <div class="sermon-list" id="sermonList"></div>
+  </div>
+</section>
+
+<!-- ================= CONNECT / WHATSAPP ================= -->
+<section class="connect" id="connect">
+  <div class="connect-inner">
+    <div class="reveal">
+      <div class="eyebrow on-dark">We're one message away</div>
+      <h2>Chat With Us on WhatsApp</h2>
+      <p>Have a prayer request, a question about an event, or need directions? Message our team directly — no forms, no waiting on hold.</p>
+      <p style="margin-top:24px; font-size:0.85rem; color:rgba(246,241,231,0.55);">Replace the placeholder number in the code (+254 700 000 000) with your church's WhatsApp Business number before publishing.</p>
+    </div>
+
+    <div class="whatsapp-panel reveal">
+      <div class="wa-head">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.7 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.1 1.1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.1 2.4 1.5 2.7 1.6.3.2.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.8.8.3.2.5.2.5.4.1.2.1.7-.1 1.4z"/></svg>
+        <div class="who">
+          <div class="n"><span class="dot-online"></span>Dominion Tabernacle Church</div>
+          <div class="s">Usually replies within a day</div>
+        </div>
+      </div>
+      <div class="wa-body">
+        <div class="wa-bubble">👋 Peace be with you! Tap a question below, or write your own — it opens straight in WhatsApp.</div>
+        <div class="wa-quick">
+          <a target="_blank" rel="noopener" href="https://wa.me/254700000000?text=Hi%2C%20I%27d%20like%20to%20request%20prayer.">Request prayer <span>›</span></a>
+          <a target="_blank" rel="noopener" href="https://wa.me/254700000000?text=Hi%2C%20what%20are%20the%20service%20times%20this%20Sunday%3F">Ask about service times <span>›</span></a>
+          <a target="_blank" rel="noopener" href="https://wa.me/254700000000?text=Hi%2C%20how%20do%20I%20get%20to%20the%20church%3F">Get directions <span>›</span></a>
+          <a target="_blank" rel="noopener" href="https://wa.me/254700000000?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20joining%20a%20ministry.">Join a ministry <span>›</span></a>
+        </div>
+      </div>
+      <div class="wa-footer-cta">
+        <a target="_blank" rel="noopener" href="https://wa.me/254700000000">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2z"/></svg>
+          Start a conversation
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<a class="wa-float" href="https://wa.me/254700000000?text=Hi%20Dominion%20Tabernacle%20Church%2C%20I%20have%20a%20question." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.7 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.1 1.1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.1 2.4 1.5 2.7 1.6.3.2.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.8.8.3.2.5.2.5.4.1.2.1.7-.1 1.4z"/></svg>
+</a>
+
+<footer>
+  <div class="footer-grid">
+    <div class="foot-brand">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+        <img src="dominion_logo.jfif" alt="Dominion Tabernacle Church logo" style="width:44px; height:44px; border-radius:50%;">
+        <div class="name">Dominion Tabernacle Church</div>
+      </div>
+      <p>"Every mountain has a peak, and every peak has an answer." We're a family of believers in Kiambu, Kenya, living out that promise together.</p>
+    </div>
+    <div>
+      <h4>Visit</h4>
+      <ul>
+        <li>Kiambu Road, Kiambu, Kenya</li>
+        <li>Sunday · 9:00 AM &amp; 11:00 AM</li>
+        <li>Wednesday · 6:00 PM</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href="https://wa.me/254700000000">WhatsApp us</a></li>
+        <li><a href="mailto:info@dominiontabernacle.org">info@dominiontabernacle.org</a></li>
+        <li><a href="#sermons">Browse sermons</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom-line">
+    <span>© 2026 Dominion Tabernacle Church. Built in faith.</span>
+    <span>Mountain of Solutions</span>
+  </div>
+</footer>
+
+<script>
+  // ---------- Scroll reveal ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el=>io.observe(el));
+
+  // ---------- Events carousel ----------
+  const track = document.getElementById('carTrack');
+  const cards = track.children;
+  const dotsWrap = document.getElementById('carDots');
+  let index = 0;
+
+  for(let i=0;i<cards.length;i++){
+    const d = document.createElement('button');
+    d.className = 'dot' + (i===0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to event ' + (i+1));
+    d.addEventListener('click', ()=>goTo(i));
+    dotsWrap.appendChild(d);
+  }
+  const dots = dotsWrap.children;
+
+  function goTo(i){
+    index = (i + cards.length) % cards.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    for(let j=0;j<dots.length;j++){ dots[j].classList.toggle('active', j===index); }
+  }
+  document.getElementById('carPrev').addEventListener('click', ()=>goTo(index-1));
+  document.getElementById('carNext').addEventListener('click', ()=>goTo(index+1));
+
+  // swipe support
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e=>{ touchStartX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', e=>{
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 40){ dx > 0 ? goTo(index-1) : goTo(index+1); }
+  }, {passive:true});
+
+  // autoplay, paused on hover/focus
+  let auto = setInterval(()=>goTo(index+1), 6000);
+  const carousel = document.querySelector('.carousel');
+  carousel.addEventListener('mouseenter', ()=>clearInterval(auto));
+  carousel.addEventListener('mouseleave', ()=>{ auto = setInterval(()=>goTo(index+1), 6000); });
+
+  // ---------- Admin gate (front-end demo only — swap for real auth before launch) ----------
+  const ADMIN_PASSCODE = "mountain2026"; // change this before publishing
+  const adminGate = document.getElementById('adminGate');
+  const adminMsg = document.getElementById('adminMsg');
+  document.getElementById('adminUnlock').addEventListener('click', ()=>{
+    const val = document.getElementById('adminPass').value;
+    if(val === ADMIN_PASSCODE){
+      adminGate.style.display = 'none';
+      document.getElementById('uploadForm').style.display = 'flex';
+      document.getElementById('uploadForm').style.flexDirection = 'column';
+    } else {
+      adminMsg.textContent = 'Incorrect passcode. Please try again.';
+      adminMsg.style.color = '#8C3B2E';
+    }
+  });
+
+  // ---------- Sermon upload (client-side demo) ----------
+  const sermonList = document.getElementById('sermonList');
+  const dropZone = document.getElementById('dropZone');
+  const audioInput = document.getElementById('audioFile');
+  const dropText = document.getElementById('dropText');
+  const uploadForm = document.getElementById('uploadForm');
+  const formMsg = document.getElementById('formMsg');
+
+  let seedSermons = [
+    { title:"Standing on the Mountain", speaker:"Pastor J. Mwangi", date:"2026-07-13", series:"Ascend", src:null },
+    { title:"The Answer at the Peak", speaker:"Pastor J. Mwangi", date:"2026-07-06", series:"Mountain of Solutions", src:null },
+    { title:"Faith That Climbs", speaker:"Evangelist S. Kimani", date:"2026-06-29", series:"Ascend", src:null },
+  ];
+
+  function renderSermon(s){
+    const el = document.createElement('div');
+    el.className = 'sermon-item';
+    const dateStr = new Date(s.date + 'T00:00:00').toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+    el.innerHTML = `
+      <div class="sermon-top">
+        <div>
+          <div class="sermon-title">${s.title}</div>
+          <div class="sermon-meta">${s.speaker} · ${dateStr}</div>
+        </div>
+        ${s.series ? `<span class="sermon-series">${s.series}</span>` : ''}
+      </div>
+      ${s.src ? `<audio controls src="${s.src}"></audio>` : `<div class="no-audio">Sample entry — awaiting audio upload</div>`}
+    `;
+    sermonList.prepend(el);
+  }
+
+  seedSermons.forEach(renderSermon);
+
+  dropZone.addEventListener('click', ()=>audioInput.click());
+  audioInput.addEventListener('change', ()=>{
+    if(audioInput.files[0]) dropText.textContent = audioInput.files[0].name;
+  });
+  ['dragover','dragenter'].forEach(evt=>{
+    dropZone.addEventListener(evt, e=>{ e.preventDefault(); dropZone.classList.add('drag'); });
+  });
+  ['dragleave','drop'].forEach(evt=>{
+    dropZone.addEventListener(evt, e=>{ e.preventDefault(); dropZone.classList.remove('drag'); });
+  });
+  dropZone.addEventListener('drop', e=>{
+    if(e.dataTransfer.files[0]){
+      audioInput.files = e.dataTransfer.files;
+      dropText.textContent = e.dataTransfer.files[0].name;
+    }
+  });
+
+  uploadForm.addEventListener('submit', e=>{
+    e.preventDefault();
+    const title = document.getElementById('sTitle').value.trim();
+    const speaker = document.getElementById('sSpeaker').value.trim();
+    const date = document.getElementById('sDate').value;
+    const series = document.getElementById('sSeries').value.trim();
+    const file = audioInput.files[0];
+
+    if(!title || !speaker || !date){
+      formMsg.textContent = 'Please fill in the title, speaker, and date.';
+      formMsg.style.color = '#8C3B2E';
+      return;
+    }
+
+    const src = file ? URL.createObjectURL(file) : null;
+    renderSermon({ title, speaker, date, series, src });
+
+    formMsg.textContent = 'Sermon added to the library below.' + (file ? '' : ' No audio file was attached.');
+    formMsg.classList.add('ok');
+    formMsg.style.color = '#33473A';
+    uploadForm.reset();
+    dropText.textContent = 'Drag an audio file here, or click to choose one (MP3, M4A, WAV)';
+  });
+</script>
+</body>
+</html>
